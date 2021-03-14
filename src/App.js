@@ -5,12 +5,26 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    counters: [{ id: 1, value: 0 }, { id: 2, value: 0 }, { id: 3, value: 0 }, {id: 4, value: 0}]
+    counters: [
+      { id: 1, value: 0 },
+      { id: 2, value: 0 },
+      { id: 3, value: 0 },
+      { id: 4, value: 0 },
+    ],
   };
+
+  constructor() {
+    super();
+    console.log("App - Constructor");
+  }
+
+  componentDidMount() {
+    console.log("App - Mounted");
+  }
 
   //using Arrow function for bind issue to solved
   //And passing An argument for event handler
-  handleIncrement = counter => {
+  handleIncrement = (counter) => {
     //We need to update the State
     //create new array clone using Spread operator
     const counters = [...this.state.counters];
@@ -22,7 +36,7 @@ class App extends Component {
     //this.setState({ value: this.state.value + 1 });
   };
 
-  handleDecrement = counter => {
+  handleDecrement = (counter) => {
     //We need to update the State
     //create new array clone using Spread operator
     const counters = [...this.state.counters];
@@ -31,19 +45,17 @@ class App extends Component {
     counters[index] = { ...counter };
     counters[index].value--;
     this.setState({ counters });
-    //console.log(product);
-    //this.setState({ value: this.state.value - 1 });
   };
   //State change belong the same component
   //cannnot modified by other component
-  handleDelete = id => {
+  handleDelete = (id) => {
     //console.log("Event Handler called", id);
-    const counters = this.state.counters.filter(c => c.id !== id);
+    const counters = this.state.counters.filter((c) => c.id !== id);
     this.setState({ counters });
   };
 
   handleReset = () => {
-    const resetCounters = this.state.counters.map(c => {
+    const resetCounters = this.state.counters.map((c) => {
       c.value = 0;
       return c;
     });
@@ -51,10 +63,11 @@ class App extends Component {
   };
 
   render() {
+    console.log("App Rendered");
     return (
       <React.Fragment>
         <NavBar
-          totalCounters={this.state.counters.filter(c => c.value > 0).length}
+          totalCounters={this.state.counters.filter((c) => c.value > 0).length}
         />
         <main style={{ backgroundColor: "#fffdd0" }} className="container">
           <Counters
